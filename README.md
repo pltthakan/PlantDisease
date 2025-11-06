@@ -43,13 +43,16 @@ Model, **MobileNetV2 tabanlıdır** ve üstüne özel katmanlar eklenmiştir:
 ```
 MobileNetV2 (include_top=False, weights='imagenet')
  ↓
-GlobalAveragePooling2D
-BatchNormalization
-Dropout(0.5)
-Dense(256, ReLU)
-BatchNormalization
-Dropout(0.3)
-Dense(NUM_CLASSES, Softmax)
+| Katman                        | Amacı                                                         |
+| ----------------------------- | ------------------------------------------------------------- |
+| `GlobalAveragePooling2D`      | Çıkan 3D feature map’i özetler, parametre sayısını azaltır.   |
+| `BatchNormalization`          | Eğitim stabilitesini artırır.                                 |
+| `Dropout(0.5)`                | Overfitting’i azaltır.                                        |
+| `Dense(256, ReLU)`            | Yeni özellik kombinasyonları öğrenir (tam bağlantılı katman). |
+| `BatchNormalization`          | Aktivasyon dağılımını dengeler.                               |
+| `Dropout(0.3)`                | Tekrar overfitting önler.                                     |
+| `Dense(NUM_CLASSES, Softmax)` | Son çıktıları sınıf olasılıklarına dönüştürür.                |
+
 ```
 
 * İlk aşamada **taban model dondurulmuştur (trainable=False)**.
